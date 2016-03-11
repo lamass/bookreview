@@ -11,7 +11,11 @@ class BooksController < ApplicationController
 	end
 
     def show
-      # find_book
+  #    if @book.reviews.blank?
+		# 	@average_review = 0
+		# else
+		# 	@average_review = @book.reviews.average(:rating).round(2)
+		# end
     end
 
 	def new
@@ -34,13 +38,13 @@ class BooksController < ApplicationController
 	end
 
     def update
-    	@book.category_id = params[:category_id]
-    	if @book.update(book_params)
-    		redirect_to book_path(@book)
-    	else
-    		render 'edit'
-    	end
-    end
+		@book.category_id = params[:category_id]
+		if @book.update(book_params)
+			redirect_to book_path(@book)
+		else
+			render 'edit'
+		end
+	end
 
     def destroy
     	@book.destroy
@@ -49,7 +53,7 @@ class BooksController < ApplicationController
 
     private
     def book_params
-       params.require(:book).permit(:title, :description, :author, :category_id)
+       params.require(:book).permit(:title, :description, :author, :category_id, :book_img)
     end
     def find_book
        @book = Book.find(params[:id])
